@@ -31,9 +31,7 @@ function Canvas() {
   var vertices = self.vertices = [];
  // var HANDLERADIUS = 4;
  // self.selectedVertex = null;
-    var x = randomIntFromIntervalX(min,maxX);
-    var y = randomIntFromIntervalX(min,maxY);
-    console.log(x, 'y',y);
+
   self.drawCircle = function (x,y,r,c) {
     ctx.fillStyle = 'red';
     ctx.strokeStyle = c || 'black';
@@ -110,15 +108,16 @@ function Canvas() {
 //  };
 }
 function init() {
-  canvas = new Canvas();
-        setInterval(function () {
-            canvas.clearRect(0,0,width,height);
-            for (var i = 0, l = 1; i < l; ++i) {
-                var x = randomIntFromIntervalX(min, maxX);
-                var y = randomIntFromIntervalX(min, maxY);
-                canvas.drawCircle(x, y, 40, 'red');
-                console.log(x, 'y', y);}
-        }, 3000);
+    var canvas = new Canvas();
+    setInterval(function () {
+            canvas.clear();
+         x = randomIntFromIntervalX(0, maxX-100);
+         y = randomIntFromIntervalX(min, maxY-100);
+        canvas.drawCircle(x, y, 40, 'red');
+        console.log(x, 'y', y);
+    },
+    3000);
+};
 
 
   function mousemove_moving(ev) {
@@ -164,5 +163,5 @@ function init() {
   window.onmouseup = function () {
     window.onmousemove = null;
   };
-}
+
 window.onload = init;
