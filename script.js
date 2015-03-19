@@ -103,7 +103,7 @@ function Canvas() {
 //    if (v.fake) return false;
 //    return in_circle(x, y, {x:v.x, y:v.y, r:HANDLERADIUS});
 //  };
-//  self.resizeHandle = function (x, y) {
+//  self.resizeHandle = function (x, y)  {
 //    var v = self.getSelectedVertex();
 //    if (v.fake) return false;
 //    return in_circle(x, y, {x:v.x+v.r, y:v.y, r:HANDLERADIUS});
