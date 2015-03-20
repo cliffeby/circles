@@ -110,9 +110,9 @@ function Canvas() {
 function init() {
     var canvas = new Canvas();
     setInterval(function () {
-            canvas.clear();
-         x = randomIntFromIntervalX(0, maxX-100);
-         y = randomIntFromIntervalX(min, maxY-100);
+         canvas.clear();
+         x = randomIntFromIntervalX(20, maxX-100);
+         y = randomIntFromIntervalX(20, maxY+400);
         canvas.drawCircle(x, y, 40, 'red');
         console.log(x, 'y', y);
     },
