@@ -56,7 +56,6 @@ function Canvas() {
 
 }
 
-
 function init() {
      canvas = new Canvas();
     canvas.clear();
