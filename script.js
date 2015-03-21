@@ -24,7 +24,7 @@ function Canvas() {
     var ctx = self.ctx = canvas.getContext('2d');
     var vertices = self.vertices = [];
     // var HANDLERADIUS = 4;
-    // self.selectedVertex = null;
+
 
     self.drawCircle = function (x,y,r,c) {
         ctx.fillStyle = 'red';
