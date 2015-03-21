@@ -73,8 +73,6 @@ function init() {
         5000);
 };
 
-
-
 for (var i = 0;i<10;i++) {
     window.onload = init;
     //canvas.clear();
