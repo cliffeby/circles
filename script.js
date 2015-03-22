@@ -10,10 +10,19 @@ var touched = {
     count:0, x:0, y:0, time:0
 }
 var correctT =[];
-var incorrectT = [];
+var dotT = [];
 var totalT = [];
 var counter =0;
 var dotCounter = 0;
+var quad = [];
+var trialLength = 10;
+
+
+//function playSound(soundfile) {
+//    document.getElementById("dummy").innerHTML= "<embed src=\""
+//    +soundfile+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
+//}
+
 
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -37,20 +46,27 @@ function Canvas() {
         ctx.arc(x, y, r, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.stroke();
-        ctx.font="20px Georgia";
-        ctx.fontSize = '25';
+        ctx.font="40px Georgia";
+        //ctx.fontSize = '25';
 
     };
     self.clear = function () {
         ctx.clearRect(0, 0, width, height);
     };
     self.results = function(){
-        var resultText = numberCorrect+'-'+numberOfMissed+'-'+numberOfIncorrect
+        var resultText = numberCorrect[0]+'-'+numberOfMissed[0]+'-'+numberOfIncorrect[0];
+        var resultTextUL = numberCorrect[1]+'-'+numberOfMissed[1]+'-'+numberOfIncorrect[1];
+        var resultTextUR = numberCorrect[2]+'-'+numberOfMissed[2]+'-'+numberOfIncorrect[2];
+        var resultTextLL = numberCorrect[3]+'-'+numberOfMissed[3]+'-'+numberOfIncorrect[3];
+        var resultTextLR = numberCorrect[4]+'-'+numberOfMissed[4]+'-'+numberOfIncorrect[4];
+
+
         ctx.fillText(resultText, width/2,height/2);
-        ctx.fillText('a', width/4,height/4);
-        ctx.fillText('b', width *.75,height/4);
-        ctx.fillText('c', width/4,height *.75);
-        ctx.fillText('d', width*.75,height *.75);
+        ctx.fillText('Correct - Ignored - Poor Touch', width/2-180,height/2+50);
+        ctx.fillText(resultTextUL, width/4,height/4);
+        ctx.fillText(resultTextUR, width *.75,height/4);
+        ctx.fillText(resultTextLL, width/4,height *.75);
+        ctx.fillText(resultTextLR, width*.75,height *.75);
     };
     var dotLeft = canvas.offsetLeft;
     var dotTop = canvas.offsetTop;
@@ -80,23 +96,59 @@ function Canvas() {
         }
         counter++;
 
-    })
+    },false);
+};
+function countQuadResults(T){
+    console.log('T',T);
+    var quad = [0,0,0,0,0];
+    hackToCleanClicks();
+    for (var i = 0;i<T.length;i++){
+        if (T[i].x< width/2 && T[i].y < height/2) {quad[1]++};
+        if (T[i].x> width/2 && T[i].y < height/2) {quad[2]++};
+        if (T[i].x< width/2 && T[i].y > height/2) {quad[3]++};
+        if (T[i].x> width/2 && T[i].y > height/2) {quad[4]++};
+    }
+    quad[0] = T.length;
+    return quad;
+}
+function subtractArray(a1,a2)
+{   var a3 =[];
+    for (var i = 0;i<a1.length;i++){
+        a3[i]=a1[i]-a2[i];
+    }
+    return a3;
+}
+function hackToCleanClicks(){
+    var clean = [];
+    for  (var i=1;i<totalT.length;i++){
+        if (totalT[i].time<20){clean[i] = totalT.splice(i,1)};
+        if (totalT[i].x -totalT[i-1].x<5 &&
+            totalT[i].y-totalT[i-1].y<5) {
+            totalT.splice(i,1)
+        }}console.log('Cleaned  clicks',clean,totalT);
 }
 function placeDot() {
     canvas.clear();
-    //canvas.results();
+    touched = {};
 
     dotX = randomIntFromInterval(20, maxX - 100);
     dotY = randomIntFromInterval(20, maxY + 200);
+    touched.x = dotX;
+    touched.y = dotY;
+    touched.time = 0;
+    touched.count = dotCounter;
+    dotT.push(touched);
     canvas.drawCircle(dotX, dotY, dotSize, 'red');
     beginTime = new Date();
-    if (dotCounter== 3){
+    if (dotCounter== trialLength){
         clearInterval(myTimer);
-        numberOfDots = dotCounter;
-        numberCorrect = correctT.length;
-        numberOfIncorrect = totalT.length-(2*numberCorrect)-numberOfMissed;
-        numberOfMissed = numberOfDots-numberCorrect;
+        hackToCleanClicks();
+        numberOfDots = countQuadResults(dotT);
+        numberCorrect = countQuadResults(correctT);
+        numberOfIncorrect = subtractArray(countQuadResults(totalT),numberCorrect);
+        numberOfMissed = subtractArray(numberOfDots,numberCorrect);
         console.log('d',numberOfDots,'c',numberCorrect,'m',numberOfMissed,'i',numberOfIncorrect);
+        console.log('quadTotalT',countQuadResults(totalT));
         canvas.results();
         return;
     }else{
@@ -109,7 +161,7 @@ function init() {
 
     canvas = new Canvas();
     placeDot();
-
+    if (dotCounter== trialLength){return};
     myTimer = setInterval(drawMyDot = function () {
             placeDot();
         },
@@ -117,9 +169,6 @@ function init() {
 
 };
 window.onload = init;
-numberOfDots = dotCounter;
-numberCorrect = correctT.length +1;
-numberOfIncorrect = totalT.length-numberCorrect;
-numberOfMissed = numberCorrect-numberOfDots;
-console.log('d',numberOfDots,'c',numberCorrect,'m',numberOfMissed);
+
+
 
