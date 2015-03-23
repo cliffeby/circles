@@ -89,7 +89,8 @@ function Canvas() {
             clearInterval(myTimer);
             correctT.push(touched);
             console.log('correct', correctT);
-            playSound('doorbell-6.mp3');
+            if (dotCounter%4==0){playSound('gotmeone.wav');}else{playSound('doorbell-6.mp3');console.log(dotCounter%4)}
+            if (dotCounter%5==0){playSound('getthenet.wav');}else{playSound('doorbell-6.mp3')}
             init();
         }
         counter++;
@@ -178,6 +179,7 @@ function init() {
             //placeDot();
         },
         timeBetweenDots);
+        //playSound('willie.wav');
 }
 window.onload = init;
 
