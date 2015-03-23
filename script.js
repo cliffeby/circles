@@ -16,10 +16,11 @@ var dotCounter = 0;
 var trialLength = 10;
 var timeBetweenDots = 5000;
 
-//function playSound(soundfile) {
-//    document.getElementById("dummy").innerHTML= "<embed src=\""
-//    +soundfile+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
-//}
+function playSound(soundfile) {
+    document.getElementById("dummy").innerHTML= "<embed src=\""
+    +soundfile+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
+    console.log('PlaySound');
+}
 
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -88,6 +89,7 @@ function Canvas() {
             clearInterval(myTimer);
             correctT.push(touched);
             console.log('correct', correctT);
+            playSound('doorbell-6.mp3');
             init();
         }
         counter++;
