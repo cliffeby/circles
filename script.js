@@ -16,11 +16,11 @@ var dotCounter = 0;
 var trialLength = 10;
 var timeBetweenDots = 5000;
 
-function playSound(soundfile) {
-    document.getElementById("dummy").innerHTML= "<embed src=\""
-    +soundfile+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
-    console.log('PlaySound');
-}
+//function playSound(soundfile) {
+//    document.getElementById("dummy").innerHTML= "<embed src=\""
+//    +soundfile+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
+//    console.log('PlaySound');
+//}
 
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -47,6 +47,7 @@ function Canvas() {
     };
     self.clear = function () {
         ctx.clearRect(0, 0, width, height);
+        //event.stopPropagation();
     };
     self.results = function () {
         var resultText = numberCorrect[0] + '-' + numberOfMissed[0] + '-' + numberOfIncorrect[0];
@@ -71,7 +72,7 @@ function Canvas() {
     var dotLeft = canvas.offsetLeft;
     var dotTop = canvas.offsetTop;
 
-    canvas.addEventListener('click', function (event) {
+    canvas.addEventListener('mouseup', function (event) {
         touched = {};
         var x = event.pageX - dotLeft;
         var y = event.pageY - dotTop;
@@ -80,6 +81,7 @@ function Canvas() {
         touched.x = x;
         touched.y = y;
         touched.count = counter;
+
         touched.time = endTime - beginTime;
         totalT.push(touched);
         console.log('totalT', totalT, 'counter', counter);
@@ -89,8 +91,8 @@ function Canvas() {
             clearInterval(myTimer);
             correctT.push(touched);
             console.log('correct', correctT);
-            if (dotCounter%4==0){playSound('gotmeone.wav');}else{playSound('doorbell-6.mp3');console.log(dotCounter%4)}
-            if (dotCounter%5==0){playSound('getthenet.wav');}else{playSound('doorbell-6.mp3')}
+            //if (dotCounter%4==0){playSound('gotmeone.wav');}else{playSound('doorbell-6.mp3');console.log(dotCounter%4)}
+            //if (dotCounter%5==0){playSound('getthenet.wav');}else{playSound('doorbell-6.mp3')}
             init();
         }
         counter++;
@@ -170,15 +172,16 @@ function placeDot() {
     console.log(dotX, 'y', dotY);
 }
 function init() {
+    if (canvas){delete canvas;}
     canvas = new Canvas();
     placeDot();
     if (dotCounter == trialLength) {
         return
     }
     myTimer = setInterval(drawMyDot = function () {
-            //placeDot();
+           placeDot();
         },
-        timeBetweenDots);
+        3000);
         //playSound('willie.wav');
 }
 window.onload = init;
