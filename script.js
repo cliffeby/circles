@@ -13,8 +13,8 @@ var dotT = [];
 var totalT = [];
 var counter = 0;
 var dotCounter = 0;
-var trialLength = 10;
-var timeBetweenDots = 5000;
+var trialLength = 4;
+var timeBetweenDots = 2000;
 
 //function playSound(soundfile) {
 //    document.getElementById("dummy").innerHTML= "<embed src=\""
@@ -28,13 +28,11 @@ function randomIntFromInterval(min, max) {
 function Canvas() {
     var self = this;
     var canvas = self.canvas = document.getElementById('thecanvas');
-    canvas.addEventListener('click', function () {
-    }, false);
     var width = canvas.width = canvas.clientWidth;
-    var height = canvas.height = canvas.clientHeight;
+    var height = canvas.height =  canvas.clientHeight;
     var ctx = self.ctx = canvas.getContext('2d');
     self.drawCircle = function (x, y, r, c) {
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = c;
         ctx.strokeStyle = c || 'black';
         ctx.strokeWidth = 3;
         ctx.beginPath();
@@ -48,6 +46,7 @@ function Canvas() {
         ctx.clearRect(0, 0, width, height);
     };
     self.results = function () {
+        calcResults();
         var resultText = numberCorrect[0] + '-' + numberOfMissed[0] + '-' + numberOfIncorrect[0];
         var resultTextUL = numberCorrect[1] + '-' + numberOfMissed[1] + '-' + numberOfIncorrect[1];
         var resultTextUR = numberCorrect[2] + '-' + numberOfMissed[2] + '-' + numberOfIncorrect[2];
@@ -70,7 +69,7 @@ function Canvas() {
     var dotLeft = canvas.offsetLeft;
     var dotTop = canvas.offsetTop;
 
-    canvas.addEventListener('click', function (event) {
+    canvas.addEventListener('mouseup', function (event) {
         touched = {};
         var x = event.pageX - dotLeft;
         var y = event.pageY - dotTop;
@@ -88,7 +87,7 @@ function Canvas() {
             clearInterval(myTimer);
             correctT.push(touched);
             console.log('correct', correctT);
-            init();
+            placeDot();
         }
         counter++;
     }, false);
@@ -96,7 +95,6 @@ function Canvas() {
 function countQuadResults(T) {
     console.log('T', T);
     var quad = [0, 0, 0, 0, 0];
-    hackToCleanClicks();
     for (var i = 0; i < T.length; i++) {
         if (T[i].x < width / 2 && T[i].y < height / 2) {
             quad[1]++
@@ -121,21 +119,21 @@ function subtractArray(a1, a2) {
     }
     return a3;
 }
-function hackToCleanClicks() {
-    var clean = [];
-    for (var i = 1; i < totalT.length; i++) {
-        if (totalT[i].time < 50) {
-            clean[i] = totalT.splice(i, 1)
-        }
-        if (totalT[i].x - totalT[i - 1].x < 5 &&
-            totalT[i].y - totalT[i - 1].y < 5) {
-            clean[i] = totalT.splice(i, 1);
-        }
-    }
-    console.log('Cleaned  clicks', clean, totalT);
-}
+//function hackToCleanClicks() {
+//    var clean = [];
+//    for (var i = 1; i < totalT.length; i++) {
+//        if (totalT[i].time < 50) {
+//            clean[i] = totalT.splice(i, 1)
+//        }
+//        if (totalT[i].x - totalT[i - 1].x < 5 &&
+//            totalT[i].y - totalT[i - 1].y < 5) {
+//            clean[i] = totalT.splice(i, 1);
+//        }
+//    }
+//    console.log('Cleaned  clicks', clean, totalT);
+//}
 function calcResults() {
-    hackToCleanClicks();
+    //hackToCleanClicks();
     numberOfDots = countQuadResults(dotT);
     numberCorrect = countQuadResults(correctT);
     numberOfIncorrect = subtractArray(countQuadResults(totalT), numberCorrect);
@@ -165,18 +163,20 @@ function placeDot() {
         console.log('dotCounter', dotCounter);
     }
     console.log(dotX, 'y', dotY);
+    if (dotCounter == trialLength) {
+        calcResults();
+    }
 }
 function init() {
     canvas = new Canvas();
     placeDot();
-    if (dotCounter == trialLength) {
-        return
-    }
-    myTimer = setInterval(drawMyDot = function () {
+
+    myTimer = setInterval(function () {
             //placeDot();
         },
         timeBetweenDots);
 }
+
 window.onload = init;
 
 
