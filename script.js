@@ -87,7 +87,7 @@ function Canvas() {
             clearInterval(myTimer);
             correctT.push(touched);
             console.log('correct', correctT);
-            placeDot();
+            //placeDot();
         }
         counter++;
     }, false);
@@ -172,7 +172,7 @@ function init() {
     placeDot();
 
     myTimer = setInterval(function () {
-            //placeDot();
+            placeDot();
         },
         timeBetweenDots);
 }
