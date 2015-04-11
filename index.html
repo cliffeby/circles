@@ -11,9 +11,9 @@
 <body ng-controller="MainCtrl as ctrl">
 
 <form ng-submit="ctrl.submit()">
-    <input type="number"  min="10" max="60" step="10" value="30" ng-model="ctrl.dotSize"/>
-    <input type="number"  min="3" max="20" step="1" value="5" ng-model="ctrl.trialLength"/>
-    <input type="number"  min="1000" max="10000" step="500" value="3000" ng-model="ctrl.timeBetweenDots"/>
+    Size<input type="number" min="10" max="60" step="10" value="30" ng-model="ctrl.dotSize"/>
+    Length<input type="number"  min="3" max="20" step="1" value="5" ng-model="ctrl.trialLength"/>
+    Time<input type="number"  min="1000" max="10000" step="500" value="3000" ng-model="ctrl.timeBetweenDots"/>
     <input type="color" ng-model="ctrl.c" value="#ff0000"/>
     <input type="submit" value="Submit"/>
 </form>
