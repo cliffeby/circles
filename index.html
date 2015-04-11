@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="circles">
 <head>
-<meta charset="utf-8" />
-<title>Circles</title>
-<script type="text/javascript" src="script.js"></script>
+    <meta charset="utf-8" />
+    <title>Circles</title>
+    <script src="../node_modules/angular/angular.js"></script>
+
+    <script type="text/javascript" src="script.js"></script>
 
 </head>
-<body>
-<!--<span id="dummy"></span>-->
-<!--<a href="#" onclick="playSound('UrlToSoundFile');">Click here to hear a sound</a>-->
-<!--<p onmouseover="playSound('UrlToSoundFile');">Mouse over this text to hear a sound</p>-->
-<canvas id="thecanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
-<button onclick = "clearInterval(myTimer)">Try it</button>
+<body ng-controller="MainCtrl as ctrl">
+
+<form ng-submit="ctrl.submit()">
+    <input type="number"  min="10" max="60" step="10" value="30" ng-model="ctrl.dotSize"/>
+    <input type="number"  min="3" max="20" step="1" value="5" ng-model="ctrl.trialLength"/>
+    <input type="number"  min="1000" max="10000" step="500" value="3000" ng-model="ctrl.timeBetweenDots"/>
+    <input type="color" ng-model="ctrl.c" value="#ff0000"/>
+    <input type="submit" value="Submit"/>
+</form>
+<canvas id="thecanvas" style="position: absolute; top: 20px; left: 0; width: 100%; height: 100%;"></canvas>
 </body>
 </html>
