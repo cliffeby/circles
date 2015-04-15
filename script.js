@@ -20,6 +20,8 @@ angular.module('circles',[])
         var dotCounter = 0;
         var trialLength = 5;
         var timeBetweenDots = 5000;
+        var againButtonY = 10;
+        var againButtonX = 500;
 
 //function playSound(soundfile) {
 //    document.getElementById("dummy").innerHTML= "<embed src=\""
@@ -36,6 +38,10 @@ angular.module('circles',[])
             var width = canvas.width = canvas.clientWidth;
             var height = canvas.height = canvas.clientHeight;
             var ctx = self.ctx = canvas.getContext('2d');
+            ctx.strokeStyle = c || 'black';
+            ctx.strokeWidth = 3;
+            ctx.rect(againButtonX,againButtonY,15,10);
+            ctx.stroke();
             self.drawCircle = function (x, y, r, c) {
                 ctx.fillStyle = c;
                 ctx.strokeStyle = c || 'black';
@@ -93,9 +99,22 @@ angular.module('circles',[])
                     placeDot(c);
                 }
                 counter++;
+                if (y > againButtonY - dotOffset && y < againButtonY + dotOffset
+                    && x > againButtonX - dotOffset && x < againButtonX + dotOffset) {
+                    correctT.push(touched);
+                    console.log('Reset');
+                    again();
+                    init();
+                }
             }, false);
         }
-
+function again(){
+     correctT = [];
+     dotT = [];
+     totalT = [];
+     counter = 0;
+     dotCounter = 0;
+}
         function countQuadResults(T) {
             console.log('T', T);
             var quad = [0, 0, 0, 0, 0];
