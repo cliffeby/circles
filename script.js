@@ -22,6 +22,7 @@ angular.module('circles',[])
         var timeBetweenDots = 5000;
         var againButtonY = 10;
         var againButtonX = 500;
+        var quad;
 
 //function playSound(soundfile) {
 //    document.getElementById("dummy").innerHTML= "<embed src=\""
@@ -56,6 +57,10 @@ angular.module('circles',[])
             self.clear = function () {
                 ctx.clearRect(0, 0, width, height);
             };
+            self.getReady = function(){
+                ctx.font = "40px Arial";
+                ctx.fillText('Get Ready',width / 2 - 40, height / 2 - 40);
+            }
             self.results = function () {
                 var resultText = numberCorrect[0] + '-' + numberOfMissed[0] + '-' + numberOfIncorrect[0];
                 var resultTextUL = numberCorrect[1] + '-' + numberOfMissed[1] + '-' + numberOfIncorrect[1];
@@ -104,20 +109,13 @@ angular.module('circles',[])
                     correctT.push(touched);
                     console.log('Reset');
                     again();
-                    init();
-                }
+                    }
             }, false);
         }
-function again(){
-     correctT = [];
-     dotT = [];
-     totalT = [];
-     counter = 0;
-     dotCounter = 0;
-}
+
         function countQuadResults(T) {
             console.log('T', T);
-            var quad = [0, 0, 0, 0, 0];
+            quad = [0, 0, 0, 0, 0];
             for (var i = 0; i < T.length; i++) {
                 if (T[i].x < width / 2 && T[i].y < height / 2) {
                     quad[1]++
@@ -183,10 +181,23 @@ function again(){
             clearInterval(myTimer);
             console.log("restarted interval");
             setTimer();
+                    }
+        function again(){
+            correctT = [];
+            dotT = [];
+            totalT = [];
+            quad = [0,0,0,0,0];
+            counter = 0;
+            dotCounter = 0;
+            numberCorrect = 0;
+            clearInterval(myTimer);
+            c = 'red';
+            vm.submit();
         }
         function init() {
             canvas = new Canvas();
-            placeDot(c);
+            //placeDot(c);
+            canvas.getReady();
             setTimer();
         }
         vm.submit = function(){
