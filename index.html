@@ -12,23 +12,19 @@
 
 <form ng-submit="ctrl.submit()">
     <div class = "input-group input-group-lg">
-        <span class = "input-group-addon"Size></span>
+        <!--<span class = "input-group-addon" Size></span>-->
     Size<input type="number" min="10" max="60" step="10" value="30" ng-model="ctrl.dotSize"/>
     Length<input type="number"  min="3" max="20" step="1" value="5" ng-model="ctrl.trialLength"/>
     Time<input type="number"  min="1000" max="10000" step="500" value="3000" ng-model="ctrl.timeBetweenDots"/>
     <input type="color" ng-model="ctrl.c" value="#ff0000"/>
-    <input type="submit" value="Submit"/>
-    <input type="submit1" value="Again"/>
-    <input type="submit2" value="Reset"/>
-        button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        Dropdown
-        <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Dropdown link</a></li>
-            <li><a href="#">Dropdown link</a></li>
-        </ul>
     </div>
+    <button class = "btn-large" type="submit" value="Submit"/>
+    <!--<button class = "btn-large" type="submit1" value="Again"/>-->
+    <!--<input class = "btn-large" type="submit2" value="Reset"/>-->
+
+
+
+
 </form>
 <canvas id="thecanvas" style="position: absolute; top: 20px; left: 0; width: 100%; height: 100%;"></canvas>
 </body>

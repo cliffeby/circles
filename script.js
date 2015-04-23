@@ -38,6 +38,8 @@ angular.module('circles',[])
             var canvas = self.canvas = document.getElementById('thecanvas');
             var width = canvas.width = canvas.clientWidth;
             var height = canvas.height = canvas.clientHeight;
+             dotLeft = canvas.offsetLeft;
+             dotTop = canvas.offsetTop;
             var ctx = self.ctx = canvas.getContext('2d');
             ctx.strokeStyle = c || 'black';
             ctx.strokeWidth = 3;
@@ -81,38 +83,38 @@ angular.module('circles',[])
                 ctx.lineTo(width / 2, height);
                 ctx.stroke();
             };
-            var dotLeft = canvas.offsetLeft;
-            var dotTop = canvas.offsetTop;
 
-            canvas.addEventListener('mouseup', function (event) {
-                touched = {};
-                var x = event.pageX - dotLeft;
-                var y = event.pageY - dotTop;
-                //console.log('x = ', x, 'y = ', y, dotY);
-                endTime = new Date();
-                touched.x = x;
-                touched.y = y;
-                touched.count = counter;
-                touched.time = endTime - beginTime;
-                totalT.push(touched);
-                console.log('totalT', totalT, 'counter', counter);
 
-                if (y > dotY - dotOffset && y < dotY + dotOffset
-                    && x > dotX - dotOffset && x < dotX + dotOffset) {
-                    correctT.push(touched);
-                    resetInterval();
-                    placeDot(c);
-                }
-                counter++;
-                if (y > againButtonY - dotOffset && y < againButtonY + dotOffset
-                    && x > againButtonX - dotOffset && x < againButtonX + dotOffset) {
-                    correctT.push(touched);
-                    console.log('Reset');
-                    again();
-                    }
-            }, false);
+            canvas.addEventListener('mouseup', myTouch, false);
+
+
         }
+        function myTouch(event) {
+            touched = {};
+            var x = event.pageX - dotLeft;
+            var y = event.pageY - dotTop;
+            //console.log('x = ', x, 'y = ', y, dotY);
+            endTime = new Date();
+            touched.x = x;
+            touched.y = y;
+            touched.count = counter;
+            touched.time = endTime - beginTime;
+            totalT.push(touched);
+            console.log('totalT', totalT, 'counter', counter);
 
+            if (y > dotY - dotOffset && y < dotY + dotOffset
+                && x > dotX - dotOffset && x < dotX + dotOffset) {
+                correctT.push(touched);
+                resetInterval();
+                placeDot(c);
+            }
+            counter++;
+            if (y > againButtonY - dotOffset && y < againButtonY + dotOffset
+                && x > againButtonX - dotOffset && x < againButtonX + dotOffset) {
+                console.log('Reset');
+                again();
+            }
+        }
         function countQuadResults(T) {
             console.log('T', T);
             quad = [0, 0, 0, 0, 0];
@@ -156,6 +158,7 @@ angular.module('circles',[])
                 clearInterval(myTimer);
                 canvas.clear();
                 calcResults();
+
                 return;}
             canvas.clear();
             touched = {};
@@ -182,16 +185,20 @@ angular.module('circles',[])
             console.log("restarted interval");
             setTimer();
                     }
-        function again(){
+        function again() {
             correctT = [];
             dotT = [];
             totalT = [];
-            quad = [0,0,0,0,0];
+            quad = [0, 0, 0, 0, 0];
             counter = 0;
             dotCounter = 0;
             numberCorrect = 0;
+            counter = 0;
             clearInterval(myTimer);
-            c = 'red';
+
+            //document.getElementById('thecanvas').remove();
+            //canvas={};
+            //Not working.  Need to reset canvas and handler.
             vm.submit();
         }
         function init() {
