@@ -1,7 +1,8 @@
 
-angular.module('circles',[])
-    .controller('MainCtrl', [function() {
-        var vm = this;
+angular.module('circles',['ui.bootstrap'])
+    .controller('MainCtrl', [function($scope) {
+        var ctrl = this;
+        ctrl.radioModel = 'Middle';
         var c = 'red';
         var canvas;
         var width = 1100;
@@ -9,6 +10,7 @@ angular.module('circles',[])
         var beginTime;
         var endTime;
         var dotSize = 40;
+        ctrl.dotSize = dotSize;
         var dotOffset = dotSize / 2 +5;
         var touched = {
             count: 0, x: 0, y: 0, time: 0
@@ -207,7 +209,7 @@ angular.module('circles',[])
             canvas.getReady();
             setTimer();
         }
-        vm.submit = function(){
+        ctrl.submit = function(){
             console.log('dsd', vm.dotSize,vm.timeBetweenDots, vm.trialLength,vm.c);
             dotSize = vm.dotSize;
             timeBetweenDots = vm.timeBetweenDots;

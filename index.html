@@ -3,29 +3,51 @@
 <head>
     <meta charset="utf-8" />
     <title>Circles</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.js"></script>-->
+    <!--<script src="bower_components/angular/angular.js"></script>-->
+    <!--<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>-->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
     <script type="text/javascript" src="script.js"></script>
-
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body ng-controller="MainCtrl as ctrl">
+<h4>Size</h4>
+<pre>{{ctrl.dotSize || 'null'}}</pre>
+<div class="btn-group">
+    <label class="btn btn-primary" ng-model="ctrl.dotSize" btn-radio="30">30</label>
+    <label class="btn btn-primary" ng-model="ctrl.dotSize" btn-radio="40">40</label>
+    <label class="btn btn-primary" ng-model="ctrl.dotSize" btn-radio="50">50</label>
+</div>
+<h4>Radio &amp; Uncheckable Radio</h4>
+<pre>{{ctrl.radioModel || 'null'}}</pre>
+<div class="btn-group">
+    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Left'">Left</label>
+    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Middle'">Middle</label>
+    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Right'">Right</label>
+</div>
+<h4>Radio &amp; Uncheckable Radio</h4>
+<pre>{{ctrl.radioModel || 'null'}}</pre>
+<div class="btn-group">
+    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Left'">Left</label>
+    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Middle'">Middle</label>
+    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Right'">Right</label>
+</div>
+<h4>Radio &amp; Uncheckable Radio</h4>
+<pre>{{radioModel || 'null'}}</pre>
+<div class="btn-group">
+    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Left'">Left</label>
+    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Middle'">Middle</label>
+    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Right'">Right</label>
+</div>
 
-<form ng-submit="ctrl.submit()">
     <div class = "input-group input-group-lg">
-        <!--<span class = "input-group-addon" Size></span>-->
-    Size<input type="number" min="10" max="60" step="10" value="30" ng-model="ctrl.dotSize"/>
-    Length<input type="number"  min="3" max="20" step="1" value="5" ng-model="ctrl.trialLength"/>
-    Time<input type="number"  min="1000" max="10000" step="500" value="3000" ng-model="ctrl.timeBetweenDots"/>
-    <input type="color" ng-model="ctrl.c" value="#ff0000"/>
+
     </div>
+    <!--<form ng-submit="ctrl.submit()">-->
     <button class = "btn-large" type="submit" value="Submit"/>
-    <!--<button class = "btn-large" type="submit1" value="Again"/>-->
-    <!--<input class = "btn-large" type="submit2" value="Reset"/>-->
-
-
-
-
-</form>
-<canvas id="thecanvas" style="position: absolute; top: 20px; left: 0; width: 100%; height: 100%;"></canvas>
+   </form>
+<canvas id="thecanvas" style="position: absolute; top: 20px; left: 200px; width: 100%; height: 100%;"></canvas>
 </body>
 </html>
