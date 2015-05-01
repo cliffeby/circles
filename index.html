@@ -20,32 +20,32 @@
     <label class="btn btn-primary" ng-model="ctrl.dotSize" btn-radio="40">40</label>
     <label class="btn btn-primary" ng-model="ctrl.dotSize" btn-radio="50">50</label>
 </div>
-<h4>Radio &amp; Uncheckable Radio</h4>
-<pre>{{ctrl.radioModel || 'null'}}</pre>
+<h4>Length</h4>
+<pre>{{ctrl.trialLength || 'null'}}</pre>
 <div class="btn-group">
-    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Left'">Left</label>
-    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Middle'">Middle</label>
-    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Right'">Right</label>
+    <label class="btn btn-primary" ng-model="ctrl.trialLength" btn-radio="5">5</label>
+    <label class="btn btn-primary" ng-model="ctrl.trialLength" btn-radio="10">10</label>
+    <label class="btn btn-primary" ng-model="ctrl.trialLength" btn-radio="20">20</label>
 </div>
-<h4>Radio &amp; Uncheckable Radio</h4>
-<pre>{{ctrl.radioModel || 'null'}}</pre>
+<h4>Time</h4>
+<pre>{{ctrl.timeBettweenDots || 'null'}}</pre>
 <div class="btn-group">
-    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Left'">Left</label>
-    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Middle'">Middle</label>
-    <label class="btn btn-primary" ng-model="ctrl.radioModel" btn-radio="'Right'">Right</label>
+    <label class="btn btn-primary" ng-model="ctrl.timeBettweenDots" btn-radio=10000>10</label>
+    <label class="btn btn-primary" ng-model="ctrl.timeBettweenDots" btn-radio=20000>20</label>
+    <label class="btn btn-primary" ng-model="ctrl.timeBettweenDots" btn-radio=30000>30</label>
 </div>
-<h4>Radio &amp; Uncheckable Radio</h4>
-<pre>{{radioModel || 'null'}}</pre>
+<h4>Color</h4>
+<pre>{{ctrl.c || 'null'}}</pre>
 <div class="btn-group">
-    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Left'">Left</label>
-    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Middle'">Middle</label>
-    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Right'">Right</label>
+    <label class="btn btn-primary" ng-model="ctrl.c " btn-radio="'Blue'">Blue</label>
+    <label class="btn btn-primary" ng-model="ctrl.c " btn-radio="'Red'">Red</label>
+    <label class="btn btn-primary" ng-model="ctrl.c " btn-radio="'Black'">Black</label>
 </div>
 
     <div class = "input-group input-group-lg">
 
     </div>
-    <!--<form ng-submit="ctrl.submit()">-->
+    <form ng-submit="ctrl.submit()">
     <button class = "btn-large" type="submit" value="Submit"/>
    </form>
 <canvas id="thecanvas" style="position: absolute; top: 20px; left: 200px; width: 100%; height: 100%;"></canvas>

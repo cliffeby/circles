@@ -2,7 +2,8 @@
 angular.module('circles',['ui.bootstrap'])
     .controller('MainCtrl', [function($scope) {
         var ctrl = this;
-        ctrl.radioModel = 'Middle';
+        var timeBetweenDots = 10000;
+        var trialLength = 5;
         var c = 'red';
         var canvas;
         var width = 1100;
@@ -210,11 +211,11 @@ angular.module('circles',['ui.bootstrap'])
             setTimer();
         }
         ctrl.submit = function(){
-            console.log('dsd', vm.dotSize,vm.timeBetweenDots, vm.trialLength,vm.c);
-            dotSize = vm.dotSize;
-            timeBetweenDots = vm.timeBetweenDots;
-            trialLength = vm.trialLength;
-            c = vm.c;
+            console.log('dsd', ctrl.dotSize,ctrl.timeBetweenDots, ctrl.trialLength,ctrl.c);
+            dotSize = ctrl.dotSize;
+            timeBetweenDots = ctrl.timeBetweenDots;
+            trialLength = ctrl.trialLength;
+            c = ctrl.c;
             init();
         }
     }]);
