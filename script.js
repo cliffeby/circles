@@ -2,16 +2,18 @@
 angular.module('circles',['ui.bootstrap'])
     .controller('MainCtrl', [function($scope) {
         var ctrl = this;
-        var timeBetweenDots = 10000;
-        var trialLength = 5;
+        var trialLength;
         var c = 'red';
         var canvas;
         var width = 1100;
         var height = 400;
         var beginTime;
         var endTime;
-        var dotSize = 40;
-        ctrl.dotSize = dotSize;
+        var dotSize;
+        ctrl.dotSize = dotSize =40;
+        ctrl.timeBetweenDots = timeBetweenDots = 2000;
+        ctrl.trialLength = trialLength = 5;
+        ctrl.c = c;
         var dotOffset = dotSize / 2 +5;
         var touched = {
             count: 0, x: 0, y: 0, time: 0
@@ -21,8 +23,6 @@ angular.module('circles',['ui.bootstrap'])
         var totalT = [];
         var counter = 0;
         var dotCounter = 0;
-        var trialLength = 5;
-        var timeBetweenDots = 5000;
         var againButtonY = 10;
         var againButtonX = 500;
         var quad;
@@ -65,7 +65,7 @@ angular.module('circles',['ui.bootstrap'])
             self.getReady = function(){
                 ctx.font = "40px Arial";
                 ctx.fillText('Get Ready',width / 2 - 40, height / 2 - 40);
-            }
+            };
             self.results = function () {
                 var resultText = numberCorrect[0] + '-' + numberOfMissed[0] + '-' + numberOfIncorrect[0];
                 var resultTextUL = numberCorrect[1] + '-' + numberOfMissed[1] + '-' + numberOfIncorrect[1];
@@ -193,7 +193,6 @@ angular.module('circles',['ui.bootstrap'])
             dotT = [];
             totalT = [];
             quad = [0, 0, 0, 0, 0];
-            counter = 0;
             dotCounter = 0;
             numberCorrect = 0;
             counter = 0;
