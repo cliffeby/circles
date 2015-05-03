@@ -1,6 +1,6 @@
 
 angular.module('circles',['ui.bootstrap'])
-    .controller('MainCtrl', [function($scope) {
+    .controller('MainCtrl', [function() {
         var ctrl = this;
         var trialLength;
         var c = 'red';
@@ -14,6 +14,7 @@ angular.module('circles',['ui.bootstrap'])
         ctrl.timeBetweenDots = timeBetweenDots = 2000;
         ctrl.trialLength = trialLength = 5;
         ctrl.c = c;
+        ctrl.showHide = true;
         var dotOffset = dotSize / 2 +5;
         var touched = {
             count: 0, x: 0, y: 0, time: 0
@@ -151,9 +152,13 @@ angular.module('circles',['ui.bootstrap'])
             numberCorrect = countQuadResults(correctT);
             numberOfIncorrect = subtractArray(countQuadResults(totalT), numberCorrect);
             numberOfMissed = subtractArray(numberOfDots, numberCorrect);
-            console.log('d', numberOfDots, 'c', numberCorrect, 'm', numberOfMissed, 'i', numberOfIncorrect);
+            ctrl.showHide = true;
+            console.log(ctrl.showHide,'d', numberOfDots, 'c', numberCorrect, 'm', numberOfMissed, 'i', numberOfIncorrect);
             console.log('quadTotalT', countQuadResults(totalT));
             canvas.results();
+
+
+
         }
         function placeDot(c) {
             if (dotCounter >= trialLength) {
@@ -215,6 +220,7 @@ angular.module('circles',['ui.bootstrap'])
             timeBetweenDots = ctrl.timeBetweenDots;
             trialLength = ctrl.trialLength;
             c = ctrl.c;
+            ctrl.showHide = false;
             init();
         }
     }]);
