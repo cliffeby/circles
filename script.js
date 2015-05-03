@@ -1,6 +1,5 @@
-
-angular.module('circles',['ui.bootstrap'])
-    .controller('MainCtrl', [function() {
+angular.module('circles', ['ui.bootstrap'])
+    .controller('MainCtrl', [function () {
         var ctrl = this;
         var trialLength;
         var c = 'red';
@@ -10,12 +9,12 @@ angular.module('circles',['ui.bootstrap'])
         var beginTime;
         var endTime;
         var dotSize;
-        ctrl.dotSize = dotSize =40;
+        ctrl.dotSize = dotSize = 40;
         ctrl.timeBetweenDots = timeBetweenDots = 2000;
         ctrl.trialLength = trialLength = 5;
         ctrl.c = c;
         ctrl.showHide = true;
-        var dotOffset = dotSize / 2 +5;
+        var dotOffset = dotSize / 2 + 5;
         var touched = {
             count: 0, x: 0, y: 0, time: 0
         };
@@ -42,12 +41,12 @@ angular.module('circles',['ui.bootstrap'])
             var canvas = self.canvas = document.getElementById('thecanvas');
             var width = canvas.width = canvas.clientWidth;
             var height = canvas.height = canvas.clientHeight;
-             dotLeft = canvas.offsetLeft;
-             dotTop = canvas.offsetTop;
+            dotLeft = canvas.offsetLeft;
+            dotTop = canvas.offsetTop;
             var ctx = self.ctx = canvas.getContext('2d');
             ctx.strokeStyle = c || 'black';
             ctx.strokeWidth = 3;
-            ctx.rect(againButtonX,againButtonY,15,10);
+            ctx.rect(againButtonX, againButtonY, 15, 10);
             ctx.stroke();
             self.drawCircle = function (x, y, r, c) {
                 ctx.fillStyle = c;
@@ -63,9 +62,9 @@ angular.module('circles',['ui.bootstrap'])
             self.clear = function () {
                 ctx.clearRect(0, 0, width, height);
             };
-            self.getReady = function(){
+            self.getReady = function () {
                 ctx.font = "40px Arial";
-                ctx.fillText('Get Ready',width / 2 - 40, height / 2 - 40);
+                ctx.fillText('Get Ready', width / 2 - 40, height / 2 - 40);
             };
             self.results = function () {
                 var resultText = numberCorrect[0] + '-' + numberOfMissed[0] + '-' + numberOfIncorrect[0];
@@ -93,6 +92,7 @@ angular.module('circles',['ui.bootstrap'])
 
 
         }
+
         function myTouch(event) {
             touched = {};
             var x = event.pageX - dotLeft;
@@ -119,6 +119,7 @@ angular.module('circles',['ui.bootstrap'])
                 again();
             }
         }
+
         function countQuadResults(T) {
             console.log('T', T);
             quad = [0, 0, 0, 0, 0];
@@ -147,19 +148,20 @@ angular.module('circles',['ui.bootstrap'])
             }
             return a3;
         }
+
         function calcResults() {
             numberOfDots = countQuadResults(dotT);
             numberCorrect = countQuadResults(correctT);
             numberOfIncorrect = subtractArray(countQuadResults(totalT), numberCorrect);
             numberOfMissed = subtractArray(numberOfDots, numberCorrect);
             ctrl.showHide = true;
-            console.log(ctrl.showHide,'d', numberOfDots, 'c', numberCorrect, 'm', numberOfMissed, 'i', numberOfIncorrect);
+            console.log(ctrl.showHide, 'd', numberOfDots, 'c', numberCorrect, 'm', numberOfMissed, 'i', numberOfIncorrect);
             console.log('quadTotalT', countQuadResults(totalT));
             canvas.results();
 
 
-
         }
+
         function placeDot(c) {
             if (dotCounter >= trialLength) {
                 console.log('maxed out');
@@ -167,7 +169,8 @@ angular.module('circles',['ui.bootstrap'])
                 canvas.clear();
                 calcResults();
 
-                return;}
+                return;
+            }
             canvas.clear();
             touched = {};
             dotCounter++;
@@ -184,15 +187,19 @@ angular.module('circles',['ui.bootstrap'])
             console.log(dotX, 'y', dotY);
 
         }
+
         function setTimer() {
-            myTimer = setInterval(function(){
-                placeDot(c)}, timeBetweenDots);
+            myTimer = setInterval(function () {
+                placeDot(c)
+            }, timeBetweenDots);
         }
+
         function resetInterval() {
             clearInterval(myTimer);
             console.log("restarted interval");
             setTimer();
-                    }
+        }
+
         function again() {
             correctT = [];
             dotT = [];
@@ -208,14 +215,16 @@ angular.module('circles',['ui.bootstrap'])
             //Not working.  Need to reset canvas and handler.
             vm.submit();
         }
+
         function init() {
             canvas = new Canvas();
             //placeDot(c);
             canvas.getReady();
             setTimer();
         }
-        ctrl.submit = function(){
-            console.log('dsd', ctrl.dotSize,ctrl.timeBetweenDots, ctrl.trialLength,ctrl.c);
+
+        ctrl.submit = function () {
+            console.log('dsd', ctrl.dotSize, ctrl.timeBetweenDots, ctrl.trialLength, ctrl.c);
             dotSize = ctrl.dotSize;
             timeBetweenDots = ctrl.timeBetweenDots;
             trialLength = ctrl.trialLength;
